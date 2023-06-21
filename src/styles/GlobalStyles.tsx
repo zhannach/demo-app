@@ -22,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
     --second-color: #539713;
     --text-color: rgba(255, 255, 255, 1);
 
+
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
