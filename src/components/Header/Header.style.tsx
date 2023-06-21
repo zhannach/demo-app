@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.header`
   display: flex;
   width: 100%;
-  margin-top: 3rem;
-  margin-left: 3rem;
+  padding-top: 3rem;
+  padding-left: 3rem;
   align-items: flex-start;
   flex-direction: column;
   font-style: normal;

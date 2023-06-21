@@ -1,20 +1,19 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
+import TextField, { BaseTextFieldProps } from '@mui/material/TextField';
 
-import styled from 'styled-components';
+import { UseFormRegister } from 'react-hook-form';
+import { FormValues } from '../../types/form';
 
-const WhiteBorderTextField = styled(TextField)`
-   margin: '0',
-`;
 
-type TextProps = {
-    label: string,
-    name: string
+interface TextProps extends BaseTextFieldProps {
+  label: string;
+  name: string;
+  register: UseFormRegister<FormValues>;
 }
 
-const TextInput = ({label, name}: TextProps) => {
+const TextInput = ({ label, name, register }: TextProps) => {
   return (
-    <WhiteBorderTextField
+    <TextField
       InputLabelProps={{
         sx: {
           color: 'white',
@@ -33,6 +32,7 @@ const TextInput = ({label, name}: TextProps) => {
           },
         },
       }}
+      {...register(name)}
       fullWidth
       id={name}
       label={label}

@@ -9,6 +9,7 @@ const theme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         "root": {
+          color: "white",
           "&.Mui-focused": {
             "color": "#fff"
           }
@@ -24,6 +25,7 @@ const theme = createTheme({
         },
       },
     },
+    
   },
 });
 
