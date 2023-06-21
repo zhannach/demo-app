@@ -5,10 +5,9 @@ import { Layout } from './components/Layout';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 
-const Home = lazy(() => import('./pages/Home'));
+const Home = lazy(() => import('./pages/Home/Home'));
 
 function App() {
-
   return (
     <>
       <Routes>

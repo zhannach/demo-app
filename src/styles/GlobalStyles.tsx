@@ -15,11 +15,13 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     heigh: 100%;
+    font-family: 'Montserrat', sans-serif;
   }
 
   :root {
     --main-color: #1D283A;
     --second-color: #539713;
+    --hover-button: #317532;
     --text-color: rgba(255, 255, 255, 1);
 
 
