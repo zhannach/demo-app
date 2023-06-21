@@ -1,32 +1,21 @@
 import React, { useState } from 'react';
-import FormControl from '@mui/material/FormControl';
-import Input from '@mui/material/Input';
-import { FormValues } from '../../types/form';
-import InputLabel from '@mui/material/InputLabel';
+
+import TextField from '@mui/material/TextField';
+import { FormData } from '../../types/form';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import styled from 'styled-components';
-import { BaseTextFieldProps } from '@mui/material';
-import { UseFormRegister } from 'react-hook-form';
+import { FieldError, UseFormRegister } from 'react-hook-form';
 
-const WhiteFormControl = styled(FormControl)`
-  width: '100%',
-  height: "35px", 
-  color: "#ffff",
-  & label.Mui-focused {
-    color: "#ffff"
-  }
-`
-
-interface TextProps extends BaseTextFieldProps {
+interface TextProps {
   label: string;
-  name: string;
-  register: UseFormRegister<FormValues>;
+  name: keyof FormData;
+  register: UseFormRegister<FormData>;
+  error: FieldError | undefined;
 }
-const Password = ({ label, name, register }: TextProps) => {
+const Password = ({ label, name, register, error }: TextProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -34,28 +23,37 @@ const Password = ({ label, name, register }: TextProps) => {
     event.preventDefault();
   };
   return (
-    <WhiteFormControl variant="standard">
-      <InputLabel htmlFor={name}>
-        {label}
-      </InputLabel> 
-      <Input
+      <TextField
         {...register(name)}
         id={name}
+        fullWidth
+        variant="standard"
+        autoComplete={name}
+        autoFocus
         type={showPassword ? 'text' : 'password'}
         sx={{ color: '#ffff', borderColor: '#ffff' }}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-            >
-              {showPassword ? <VisibilityOff sx={{color: '#ffff'}} /> : <Visibility sx={{color: '#ffff'}}/>}
-            </IconButton>
-          </InputAdornment>
-        }
+        error={!!error}
+        label={label}
+        helperText={error && error.message}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="end" sx={{position: "absolute"}} variant="standard">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+              >
+                {showPassword ? (
+                  <VisibilityOff sx={{ color: '#ffff'}} />
+                ) : (
+                  <Visibility sx={{ color: '#ffff' }} />
+                )}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        
       />
-    </WhiteFormControl>
   );
 };
 

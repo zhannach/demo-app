@@ -6,12 +6,13 @@ const theme = createTheme({
     fontFamily: ['Montserrat', 'sans-serif'].join(','),
   },
   components: {
-    MuiFormLabel: {
+    MuiInputLabel: {
       styleOverrides: {
         "root": {
           color: "white",
           "&.Mui-focused": {
-            "color": "#fff"
+            color: "#fff",
+            fontSize: '16px',
           }
         },
       },
@@ -19,6 +20,12 @@ const theme = createTheme({
     MuiInput: {
       styleOverrides: {
         root: {
+          color: '#ffff',
+          flexBasis: "1",
+          display: "flex",
+          flexDirection: 'row-reverse',
+          fontSize: '16px',
+          width: "100%",
           ":after": {
             borderBottom: '2px solid white',
           },

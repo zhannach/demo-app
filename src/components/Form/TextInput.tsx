@@ -1,46 +1,36 @@
 import React from 'react';
-import TextField, { BaseTextFieldProps } from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 
-import { UseFormRegister } from 'react-hook-form';
-import { FormValues } from '../../types/form';
+import { FieldError, UseFormRegister } from 'react-hook-form';
+import { FormData } from '../../types/form';
 
-
-interface TextProps extends BaseTextFieldProps {
+interface TextProps {
   label: string;
-  name: string;
-  register: UseFormRegister<FormValues>;
+  name: keyof FormData;
+  register: UseFormRegister<FormData>;
+  error: FieldError | undefined;
 }
 
-const TextInput = ({ label, name, register }: TextProps) => {
+const TextInput = ({ label, name, register, error }: TextProps) => {
   return (
-    <TextField
-      InputLabelProps={{
-        sx: {
-          color: 'white',
-          '&.Mui-focused': {
-            color: '#fff',
-            fontSize: '16px',
-          },
-        },
-      }}
-      inputProps={{
-        sx: {
-          color: '#ffff',
-          fontSize: '16px',
-          '&.Mui-focused': {
-            borderColor: '#fff',
-          },
-        },
-      }}
-      {...register(name)}
-      fullWidth
-      id={name}
-      label={label}
-      name={name}
-      variant="standard"
-      autoComplete={name}
-      autoFocus
-    />
+    <>
+      <TextField
+        InputLabelProps={{
+          shrink: true,
+        }}
+        {...register(name)}
+        fullWidth
+        error={!!error}
+        id={name}
+        type={'text'}
+        label={label}
+        name={name}
+        variant="standard"
+        autoComplete={name}
+        autoFocus
+        helperText={error && error.message}
+      />
+    </>
   );
 };
 

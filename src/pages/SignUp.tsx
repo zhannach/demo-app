@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver} from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
@@ -9,23 +10,27 @@ import { FormContainer, FormButton } from '../components/Form/Form.styled';
 import Password from '../components/Form/Password';
 import TextInput from '../components/Form/TextInput';
 import Title from '../components/Form/Title';
-import { FormValues } from '../types/form';
+import { FormData } from '../types/form';
+
+import { schema } from '../helpers/Schema';
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } =  useForm<FormValues>({
+  } =  useForm<FormData>({
     defaultValues: {
       fullName: '',
       userName: '',
       password: '',
       confirmPassword: ''
     },
-    mode: 'onChange', reValidateMode: 'onChange' });
+    mode: 'onChange', reValidateMode: 'onChange',
+    resolver: yupResolver<FormData
+    >(schema) });
 
-    const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const onSubmit: SubmitHandler<FormData> = (data) => {
       console.log(data)
     };
 
@@ -41,10 +46,10 @@ const SignUp = () => {
       >
         <Title text={'Sign up'} />
         <FormContainer component="form" onSubmit={handleSubmit(onSubmit)}>
-          <TextInput label={'Full Name'} name={'fullName'} register={register} />
-          <TextInput label={'User Name'} name={'userName'} register={register} />
-          <Password label={'Password'} name={'password'} register={register}/>
-          <Password label={'Confirm Password'} name={'confirmPassword'} register={register}  />
+          <TextInput label={'Full Name'} error={errors.fullName} name={'fullName'} register={register} />
+          <TextInput label={'User Name'} error={errors.userName} name={'userName'} register={register} />
+          <Password label={'Password'} error={errors.password} name={'password'} register={register}/>
+          <Password label={'Confirm Password'} error={errors.confirmPassword} name={'confirmPassword'} register={register}  />
           <FormButton type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: '24px' }}>
             Sign Up
           </FormButton>
