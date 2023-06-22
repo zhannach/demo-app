@@ -7,7 +7,7 @@ import { CustomProvider } from './styles/CustomProvider.tsx';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <CustomProvider >
+      <CustomProvider>
         <App />
       </CustomProvider>
     </BrowserRouter>

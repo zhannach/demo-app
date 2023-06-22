@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { BASE_URL } from '../redux/api';
 
-const authApi = axios.create({});
+const apiClient = axios.create({});
 
-authApi.interceptors.request.use((config) => {
+apiClient.interceptors.request.use((config) => {
   const tokens = JSON.parse(localStorage.getItem('tokens') as string);
   config.headers['Authorization'] = `Bearer ${tokens.accessToken}`;
   return config;
 });
 
-authApi.interceptors.response.use(
+apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -31,4 +31,4 @@ authApi.interceptors.response.use(
   }
 );
 
-export default authApi;
+export default apiClient;

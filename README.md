@@ -3,6 +3,10 @@
 ## Task:
 The main task is to create a demo application where the user would be able to register his account using the Sign Up form and later log into it through the Sign In form. After a successful login, the user should be automatically redirected to the Home page, where in the future he should be able to use the Logout button to exit his account.
 
+To run locally:
+
+```npm ci```
+```npm run dev```
 
 :hammer_and_wrench: Tech Stack
 

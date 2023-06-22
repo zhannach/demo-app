@@ -3,8 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FormSignIn } from '../types/form';
+import { SignInForm } from '../types/form';
 import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { FormContainer, FormButton } from '../components/Form/Form.styled';
@@ -12,7 +13,7 @@ import Password from '../components/Form/Password';
 import TextInput from '../components/Form/TextInput';
 import Title from '../components/Form/Title';
 
-import { signInSchema } from '../helpers/Schema';
+import { signInSchema } from '../helpers/schema';
 import { loginUser } from '../redux/api';
 import { AppDispatch, RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
@@ -23,28 +24,27 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormSignIn>({
+  } = useForm<SignInForm>({
     defaultValues: {
       userName: '',
       password: '',
     },
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: yupResolver<FormSignIn>(signInSchema),
+    resolver: yupResolver<SignInForm>(signInSchema),
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const error = useSelector((state: RootState) => state.user.error);
   const isUserActive = useSelector((state: RootState) => state.user.isUserActive);
-  console.log(isUserActive, error);
+
   useEffect(() => {
     if (isUserActive) {
       navigate('/main');
     }
-  }, [isUserActive]);
+  }, [navigate, isUserActive]);
 
-
-  const onSubmit: SubmitHandler<FormSignIn> = (data) => {
+  const onSubmit: SubmitHandler<SignInForm> = (data) => {
     const { userName, password } = data;
     dispatch(loginUser({ userName, password }));
   };
@@ -83,7 +83,12 @@ const SignIn = () => {
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <span>Don't have an account?</span>
             <span>
-              <Link href="/signup" variant="body2" sx={{ margin: '8px', textDecoration: 'none' }}>
+              <Link
+                to="/signup"
+                component={RouterLink}
+                variant="body2"
+                sx={{ margin: '8px', textDecoration: 'none' }}
+              >
                 {'New Account'}
               </Link>
             </span>

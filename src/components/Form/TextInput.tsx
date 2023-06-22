@@ -1,12 +1,11 @@
 import TextField from '@mui/material/TextField';
 
-import { FieldError, UseFormRegister } from 'react-hook-form';
-import { FormData } from '../../types/form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 interface TextProps {
   label: string;
-  name: keyof FormData;
-  register: UseFormRegister<FormData>;
+  name: string;
+  register: (name: string) => UseFormRegisterReturn;
   error: FieldError | undefined;
 }
 

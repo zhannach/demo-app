@@ -20,9 +20,9 @@ const Home = () => {
 
   useEffect(() => {
     if (!isUserActive) {
-      navigate('/')
-  }
-  }, [isUserActive])
+      navigate('/');
+    }
+  }, [navigate, isUserActive]);
 
   return (
     <Wrapper>

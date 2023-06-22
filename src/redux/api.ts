@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import authApi from '../helpers/authApi';
+import apiClient from '../helpers/apiClient';
 
 export const BASE_URL = 'https://expa.fly.dev';
 
@@ -23,8 +23,7 @@ export const registerUser = createAsyncThunk(
       username: userName,
       displayName: fullName,
     });
-    const data = await res.data;
-    return data;
+    return await res.data;
   }
 );
 
@@ -42,6 +41,6 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk('content/logout', async () => {
-  await authApi.get(`${BASE_URL}/auth/logout`);
+  await apiClient.get(`${BASE_URL}/auth/logout`);
   localStorage.removeItem('tokens');
 });

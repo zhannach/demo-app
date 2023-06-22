@@ -14,7 +14,7 @@ export interface UserState {
   };
   isLoading: boolean;
   error: string | undefined;
-  isUserActive: boolean
+  isUserActive: boolean;
 }
 
 const initialState: UserState = {
@@ -30,7 +30,7 @@ const initialState: UserState = {
   },
   isLoading: false,
   error: '',
-  isUserActive: !!localStorage.getItem('tokens')
+  isUserActive: !!localStorage.getItem('tokens'),
 };
 
 export const userSlice = createSlice({
@@ -60,19 +60,19 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user.tokens.accessToken = action.payload.accessToken;
       state.user.tokens.refreshToken = action.payload.refreshToken;
-      state.isUserActive = true
+      state.isUserActive = true;
     });
     builder.addCase(loginUser.rejected, (state) => {
-      state.error = "Sorry, user was not found";
+      state.error = 'Sorry, user was not found';
     });
     builder.addCase(logout.pending, (state) => {
-      state.isLoading = true
+      state.isLoading = true;
       state.error = undefined;
     });
     builder.addCase(logout.fulfilled, (state) => {
-      state.isLoading = false
+      state.isLoading = false;
       state.user.tokens.refreshToken = '';
-      state.isUserActive = false
+      state.isUserActive = false;
     });
   },
 });

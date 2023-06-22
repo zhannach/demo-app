@@ -1,4 +1,4 @@
-import { Wrapper } from './Header.style'
+import { Wrapper } from './Header.style';
 
 const Header = () => {
   return (
@@ -6,7 +6,7 @@ const Header = () => {
       <h3>InCode</h3>
       <h5>Finance</h5>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

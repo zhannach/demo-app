@@ -1,15 +1,11 @@
-export interface FormValues {
-  [key: string]: string;
-}
+import { FieldValues } from 'react-hook-form';
 
-export interface FormData {
+export type SignUpForm = SignInForm & {
+  fullName: string;
+  confirmPassword: string;
+};
+
+export type SignInForm = FieldValues & {
   userName: string;
   password: string;
-  fullName?: string;
-  confirmPassword?: string;
-}
-
-export interface FormSignIn {
-  userName: string;
-  password: string;
-}
+};

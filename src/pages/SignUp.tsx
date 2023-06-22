@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
 import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import Container from '@mui/material/Container';
@@ -12,10 +13,10 @@ import { FormContainer, FormButton } from '../components/Form/Form.styled';
 import Password from '../components/Form/Password';
 import TextInput from '../components/Form/TextInput';
 import Title from '../components/Form/Title';
-import { FormData } from '../types/form';
+import { SignUpForm } from '../types/form';
 import { registerUser } from '../redux/api';
 
-import { schema } from '../helpers/Schema';
+import { signUpSchema } from '../helpers/schema';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
 
@@ -26,14 +27,13 @@ const SignUp = () => {
     if (isUserActive) {
       navigate('/main');
     }
-  }, [isUserActive]);
-  console.log(isUserActive )
+  }, [navigate, isUserActive]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<SignUpForm>({
     defaultValues: {
       fullName: '',
       userName: '',
@@ -42,13 +42,13 @@ const SignUp = () => {
     },
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: yupResolver<FormData>(schema),
+    resolver: yupResolver<SignUpForm>(signUpSchema),
   });
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector((state: RootState) => state.user.error);
   const user = useSelector((state: RootState) => state.user.user);
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<SignUpForm> = (data) => {
     const { userName, password, fullName } = data;
     dispatch(registerUser({ userName, password, fullName }));
   };
@@ -66,7 +66,7 @@ const SignUp = () => {
         {user.id !== '' && (
           <Alert severity="success" sx={{ marginBottom: '14px' }}>
             You have successfully registered. Go to &#10145;
-            <Link href="/" sx={{ margin: '8px', textDecoration: 'none' }}>
+            <Link to="/" component={RouterLink} sx={{ margin: '8px', textDecoration: 'none' }}>
               {' '}
               Sign In
             </Link>
@@ -108,7 +108,12 @@ const SignUp = () => {
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <span>I have an account?</span>
             <span>
-              <Link href="/" variant="body2" sx={{ margin: '8px', textDecoration: 'none' }}>
+              <Link
+                to="/"
+                component={RouterLink}
+                variant="body2"
+                sx={{ margin: '8px', textDecoration: 'none' }}
+              >
                 {'Go to Sign in'}
               </Link>
             </span>
