@@ -28,28 +28,22 @@ The main task is to create a demo application where the user would be able to re
 
 :zap: Work with forms
 
-- Formik
-
 - React Hook Form
 
 :zap: Form validation
 
 - Yup
-:zap: UI library (options)
+- 
+:zap: UI library
 
 - Material UI
 
-- Chakra UI
 
-- Ant Design
-
-:zap: styles (options)
+:zap: styles 
 
 - styled-component
 
 - styles with UI library
-
-- SASS/SCSS/LESS modules
 
 :zap: Clean code
 
