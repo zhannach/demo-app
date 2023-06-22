@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, registerUser, refreshToken, logout } from './api';
+import { loginUser, registerUser, logout } from './api';
 
 export interface UserState {
   user: {
