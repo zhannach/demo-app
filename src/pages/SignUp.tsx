@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver} from '@hookform/resolvers/yup';
-import {  useNavigate } from "react-router-dom";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
@@ -17,63 +17,91 @@ import { registerUser } from '../redux/api';
 
 import { schema } from '../helpers/Schema';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import { AppDispatch, RootState } from '../redux/store';
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const isUserActive = useSelector((state: RootState) => state.user.isUserActive);
+  useEffect(() => {
+    if (isUserActive) {
+      navigate('/main');
+    }
+  }, [isUserActive]);
+  console.log(isUserActive )
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
-  } =  useForm<FormData>({
+  } = useForm<FormData>({
     defaultValues: {
       fullName: '',
       userName: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     },
-    mode: 'onChange', reValidateMode: 'onChange',
-    resolver: yupResolver<FormData
-    >(schema) });
-    const dispatch = useDispatch()
-    const [isSuccess, setIsSuccess] = useState(false)
-    const isLoading = useSelector((state: RootState) => state.user.isLoading)
-    const error = useSelector((state: RootState) => state.user.error)
-    const user = useSelector((state: RootState) => state.user.user)
-    const navigate = useNavigate();
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver<FormData>(schema),
+  });
+  const dispatch = useDispatch<AppDispatch>();
+  const error = useSelector((state: RootState) => state.user.error);
+  const user = useSelector((state: RootState) => state.user.user);
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-      const {userName, password, fullName} = data
-      dispatch(registerUser({userName, password, fullName}))
-      console.log(user)
-      if (!error) {
-        setIsSuccess(true)
-        setTimeout(() => {
-          setIsSuccess(false)
-          reset()
-          navigate('/');
-        }, 1500)
-      }
-    };
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    const { userName, password, fullName } = data;
+    dispatch(registerUser({ userName, password, fullName }));
+  };
 
   return (
     <Container component="main" sx={{ display: 'flex', justifyContent: 'center' }}>
       <Box
         sx={{
-          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'start',
         }}
       >
         <Title text={'Sign up'} />
-        {isSuccess && <Alert severity="success">You have successfully registered</Alert>}
-        {error && <Alert severity="error" sx={{marginBottom: '10px'}}>{error}</Alert>}
+        {user.id !== '' && (
+          <Alert severity="success" sx={{ marginBottom: '14px' }}>
+            You have successfully registered. Go to &#10145;
+            <Link href="/" sx={{ margin: '8px', textDecoration: 'none' }}>
+              {' '}
+              Sign In
+            </Link>
+          </Alert>
+        )}
+        {error && (
+          <Alert severity="error" sx={{ marginBottom: '10px' }}>
+            {error}
+          </Alert>
+        )}
         <FormContainer component="form" onSubmit={handleSubmit(onSubmit)}>
-          <TextInput label={'Full Name'} error={errors.fullName} name={'fullName'} register={register} />
-          <TextInput label={'User Name'} error={errors.userName} name={'userName'} register={register} />
-          <Password label={'Password'} error={errors.password} name={'password'} register={register}/>
-          <Password label={'Confirm Password'} error={errors.confirmPassword} name={'confirmPassword'} register={register}  />
+          <TextInput
+            label={'Full Name'}
+            error={errors.fullName}
+            name={'fullName'}
+            register={register}
+          />
+          <TextInput
+            label={'User Name'}
+            error={errors.userName}
+            name={'userName'}
+            register={register}
+          />
+          <Password
+            label={'Password'}
+            error={errors.password}
+            name={'password'}
+            register={register}
+          />
+          <Password
+            label={'Confirm Password'}
+            error={errors.confirmPassword}
+            name={'confirmPassword'}
+            register={register}
+          />
           <FormButton type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: '24px' }}>
             Sign Up
           </FormButton>

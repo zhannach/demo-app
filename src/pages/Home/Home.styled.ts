@@ -29,6 +29,7 @@ export const Wrapper = styled.section`
     background-color: var(--second-color);
     width: 99px;
     height: 44px;
+    margin-bottom: 60px;
     color: var(--text-color);
     font-size: 16px;
     font-weigh: 600;
