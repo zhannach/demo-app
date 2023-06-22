@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Title from '../../components/Form/Title';
 import image from '../../assets/Vector.png';

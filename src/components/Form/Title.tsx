@@ -1,4 +1,3 @@
-import React from 'react';
 import Typography from '@mui/material/Typography';
 
 const Title = ({text, fontSize ="56px"} : {text: string, fontSize?: string}) => {

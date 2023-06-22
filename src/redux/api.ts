@@ -14,6 +14,7 @@ type User = {
   userName: string;
   password: string;
 };
+
 export const registerUser = createAsyncThunk(
   'content/registerUser',
   async ({ password, userName, fullName }: User) => {
@@ -37,17 +38,6 @@ export const loginUser = createAsyncThunk(
     const tokens = await res.data;
     localStorage.setItem('tokens', JSON.stringify(tokens));
     return tokens;
-  }
-);
-
-export const refreshToken = createAsyncThunk(
-  'content/refresh',
-  async ({ refreshToken }: { refreshToken: string }) => {
-    const res = await axios.post(`${BASE_URL}/auth/refresh`, {
-      refreshToken: refreshToken,
-    });
-    const accessToken = await res.data;
-    return accessToken;
   }
 );
 

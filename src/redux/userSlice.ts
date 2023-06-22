@@ -65,13 +65,6 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.rejected, (state) => {
       state.error = "Sorry, user was not found";
     });
-    builder.addCase(refreshToken.fulfilled, (state, action) => {
-      state.user.tokens.accessToken = action.payload.accessToken;
-      state.isUserActive = true
-    });
-    builder.addCase(refreshToken.rejected, (state, action) => {
-      state.error = action.error.message;
-    });
     builder.addCase(logout.pending, (state) => {
       state.isLoading = true
       state.error = undefined;
