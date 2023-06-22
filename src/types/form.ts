@@ -8,3 +8,8 @@ export interface FormData {
   fullName?: string;
   confirmPassword?: string;
 }
+
+export interface FormSignIn {
+  userName: string;
+  password: string;
+}
