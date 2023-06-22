@@ -1,6 +1,7 @@
 import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver} from '@hookform/resolvers/yup';
+import { useDispatch } from 'react-redux';
 
 import { FormData } from '../types/form';
 import Link from '@mui/material/Link';
@@ -12,6 +13,7 @@ import TextInput from '../components/Form/TextInput';
 import Title from '../components/Form/Title';
 
 import { schema } from '../helpers/Schema';
+import { registerUser } from '../redux/api';
 
 const SignIn = () => {
   const {
@@ -28,9 +30,12 @@ const SignIn = () => {
     resolver: yupResolver<FormData
     >(schema)
   });
-  console.log(errors, 111)
+  const dispatch = useDispatch()
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data)
+    // const {userName, password} = data
+    // dispatch(registerUser({userName, password}))
+     console.log(data)
   };
   return (
     <Container component="main" sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>

@@ -37,7 +37,7 @@ const Password = ({ label, name, register, error }: TextProps) => {
         helperText={error && error.message}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="end" sx={{position: "absolute"}} variant="standard">
+            <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
